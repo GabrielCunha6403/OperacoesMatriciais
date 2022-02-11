@@ -1,7 +1,31 @@
 <meta charset="8-UTF">
 <script>
 
-    class matriz{
+    class Matriz{
+        constructor(n, m){
+            this.n = n;
+            this.m = m;
+
+            let matriz = [n];
+            
+            for(var i = 0; i < n; i++){
+                matriz[i] = [m];
+            }
+
+            this.matriz = matriz;
+        }
+
+        getN(){
+            return this.n;
+        }
+        
+        getM(){
+            return this.m;
+        }
+
+    }
+
+    class Termo{
         constructor(i, j){
             this.i = i;
             this.j = j;
@@ -17,7 +41,21 @@
 
     }
 
-    
+    let linhas = parseInt(prompt("Quantas linhas terá a matriz?"));
+    let colunas = parseInt(prompt("Quantas colunas terá a matriz?"));
 
+    let matriz = new Matriz(linhas, colunas);
+
+    console.log(matriz);
+
+    for(var i = 0; i < matriz.getN(); i++){
+        for (let j = 0; j < matriz.getM(); j++) {
+            let termo = parseInt(prompt("Qual o valor do termo " + i + j + ":"));
+            matriz.matriz[i][j] = termo;
+            //console.log(matriz.matriz[i])
+        }
+    }
+
+    console.log(matriz);
 
 </script>

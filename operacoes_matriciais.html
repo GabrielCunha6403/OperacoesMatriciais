@@ -1,3 +1,10 @@
+
+<table id="tabela">
+    <tr>
+        <td>hellow</td>
+    </tr>
+</table>
+
 <meta charset="8-UTF">
 <script>
 
@@ -50,12 +57,16 @@
 
     for(var i = 0; i < matriz.getN(); i++){
         for (let j = 0; j < matriz.getM(); j++) {
-            let termo = parseInt(prompt("Qual o valor do termo " + i + j + ":"));
+            let termo = parseInt(prompt("Qual o valor do termo " + (i + 1) + (j + 1)+ ":"));
             matriz.matriz[i][j] = termo;
             //console.log(matriz.matriz[i])
         }
     }
 
     console.log(matriz);
+
+    let tabela = document.getElementById("tabela");
+
+    console.log(tabela.chi);
 
 </script>

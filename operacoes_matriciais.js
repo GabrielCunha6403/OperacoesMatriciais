@@ -24,7 +24,7 @@
 
     }
 
-    class Termo{
+    /*class Termo{
         constructor(i, j){
             this.i = i;
             this.j = j;
@@ -38,7 +38,7 @@
             return j;
         }
 
-    }
+    }*/
 
     let linhas = parseInt(prompt("Quantas linhas terá a matriz?"));
     let colunas = parseInt(prompt("Quantas colunas terá a matriz?"));

@@ -97,3 +97,30 @@
     }
 
 //================================== /FUNÇÃO PARA TRANSFORMAR MATRIZ EM UMA TABLE HTML ==================================
+
+//================================== SOMA ENTRE DUAS MATRIZES ==================================
+
+    function somaMatriz(matriz1, matriz2) {
+
+        if(matriz1.getN() != matriz2.getN() || matriz1.getM() != matriz2.getM())
+            alert("Essa operação não pode ser realizada com matrizes de linhas ou colunas diferentes!");
+        else{
+
+            var matriz = new Matriz(matriz1.getN(), matriz1.getM());
+
+            console.log(matriz);
+    
+            for(let i = 0; i < matriz.getN(); i++){
+                for (let j = 0; j < matriz.getM(); j++) {
+                    let termo = matriz1.matriz[i][j] + matriz2.matriz[i][j];
+                    matriz.matriz[i][j] = termo;
+                }
+            }
+            console.log(matriz);
+    
+            return matriz;
+        }
+
+    }
+
+//================================== /SOMA ENTRE DUAS MATRIZES ==================================

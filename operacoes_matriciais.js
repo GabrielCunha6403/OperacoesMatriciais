@@ -1,5 +1,6 @@
 
-
+//================================== CLASSES ================================== 
+    
     class Matriz{
         constructor(n, m){
             this.n = n;
@@ -40,47 +41,59 @@
 
     }*/
 
-    let linhas = parseInt(prompt("Quantas linhas terá a matriz?"));
-    let colunas = parseInt(prompt("Quantas colunas terá a matriz?"));
+//================================== /CLASSES ==================================
 
-    let matriz = new Matriz(linhas, colunas);
+//================================== FUNÇÃO PARA CRIAR UMA MATRIZ ==================================
 
-    console.log(matriz);
+    function createMatriz(){
+        let linhas = parseInt(prompt("Quantas linhas terá a matriz?"));
+        let colunas = parseInt(prompt("Quantas colunas terá a matriz?"));
 
-    for(var i = 0; i < matriz.getN(); i++){
-        for (let j = 0; j < matriz.getM(); j++) {
-            let termo = parseInt(prompt("Qual o valor do termo " + (i + 1) + (j + 1)+ ":"));
-            matriz.matriz[i][j] = termo;
-            //console.log(matriz.matriz[i])
+        var matriz = new Matriz(linhas, colunas);
+
+        console.log(matriz);
+
+        for(let i = 0; i < matriz.getN(); i++){
+            for (let j = 0; j < matriz.getM(); j++) {
+                let termo = parseInt(prompt("Qual o valor do termo " + (i + 1) + (j + 1)+ ":"));
+                matriz.matriz[i][j] = termo;
+            }
         }
+        console.log(matriz);
+
+        return matriz;
     }
 
-    console.log(matriz);
+//================================== /FUNÇÃO PARA CRIAR UMA MATRIZ ==================================
 
+
+//================================== FUNÇÃO PARA TRANSFORMAR MATRIZ EM UMA TABLE HTML ==================================
     let tabela = document.getElementById("tabela");
 
     console.log(tabela);
+    
+    function writeMatriz(matriz) {
 
-    /*for (let i = 0; i < matriz.getN(); i++) {
-        for (let j = 0; j < matriz.getM(); j++) {
-            document.write(matriz.matriz[i][j] + " ")
-            
+        let table = document.createElement('table');
+
+        for (let i = 0; i < matriz.getN(); i++) {
+
+            let tr = document.createElement('tr');
+
+            for (let j = 0; j < matriz.getM(); j++) {
+                var td = document.createElement('td')
+                var data = document.createTextNode(matriz.matriz[i][j]);
+
+                td.appendChild(data);
+
+                tr.appendChild(td);
+            }
+
+            table.appendChild(tr);
         }
-        document.write('<br>')
-    }*/
-    for (let i = 0; i < matriz.getN(); i++) {
 
-        let tr = document.createElement('tr');
-
-        for (let j = 0; j < matriz.getM(); j++) {
-            var td = document.createElement('td')
-            var data = document.createTextNode(matriz.matriz[i][j]);
-
-            td.appendChild(data);
-
-            tr.appendChild(td);
-        }
-
-
-        tabela.appendChild(tr);
+        console.log(table);
+        document.getElementById('matrizArea').appendChild(table);
     }
+
+//================================== /FUNÇÃO PARA TRANSFORMAR MATRIZ EM UMA TABLE HTML ==================================

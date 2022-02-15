@@ -118,9 +118,21 @@
             }
             console.log(matriz);
     
-            return matriz;
+            writeMatriz(matriz);
         }
 
     }
 
 //================================== /SOMA ENTRE DUAS MATRIZES ==================================
+
+//================================== FUNÇÃO DO BOTÃO ==================================
+
+    function selectOperation(){
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação por escalar;"))
+    
+        switch(select){
+            case 1:
+                document.write(somaMatriz(createMatriz(), createMatriz()));
+            break;
+        }
+    }

@@ -118,7 +118,7 @@
             }
             console.log(matriz);
     
-            writeMatriz(matriz);
+            return(matriz);
         }
 
     }

@@ -102,9 +102,10 @@
 
     function somaMatriz(matriz1, matriz2) {
 
-        if(matriz1.getN() != matriz2.getN() || matriz1.getM() != matriz2.getM())
+        if(matriz1.getN() != matriz2.getN() || matriz1.getM() != matriz2.getM()){
             alert("Essa operação não pode ser realizada com matrizes de linhas ou colunas diferentes!");
-        else{
+            return(null);
+        } else {
 
             var matriz = new Matriz(matriz1.getN(), matriz1.getM());
 
@@ -118,12 +119,38 @@
             }
             console.log(matriz);
     
-            return(matriz);
         }
+        return(matriz);
 
     }
 
 //================================== /SOMA ENTRE DUAS MATRIZES ==================================
+
+//================================== MULTIPLICAÇÃO POR ESCALAR ==================================
+
+    function multEscalar(matriz1, matriz2) {
+        if (matriz1.getM() != matriz2.getN()) {
+            alert("Essa operação não pode ser realizada! (colunas da Matriz1 é diferente do número de linhas da Matriz2)");
+            return null;
+        } else {
+
+            var matriz = new Matriz(matriz1.getN(), matriz2.getM());
+            let termo;
+
+            for (let i = 0; i < matriz1.getM(); i++) {
+                for (let j = 0; j < matriz2.getN(); j++) {
+                    termo = 0;
+                    for (let k = 0; k < matriz1.getN(); k++) {
+                        termo += matriz1.matriz[i][k] * matriz2.matriz[k][j];
+                    }
+                    matriz.matriz[i][j] = termo;
+                }
+            }
+            return matriz;
+        }
+    }
+
+//================================== /MULTIPLICAÇÃO POR ESCALAR ==================================
 
 //================================== FUNÇÃO DO BOTÃO ==================================
 
@@ -131,8 +158,19 @@
         let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação por escalar;"))
     
         switch(select){
+
             case 1:
-                document.write(somaMatriz(createMatriz(), createMatriz()));
+
+                let soma = somaMatriz(createMatriz(), createMatriz());
+                document.getElementById('matrizArea').appendChild(writeMatriz(soma));
+
+            break;
+
+            case 2:
+
+                let mult = multEscalar(createMatriz(), createMatriz());
+                document.getElementById('matrizArea').appendChild(writeMatriz(mult));
+
             break;
         }
     }

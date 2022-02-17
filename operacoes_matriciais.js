@@ -103,7 +103,7 @@
     function somaMatriz(matriz1, matriz2) {
 
         if(matriz1.getN() != matriz2.getN() || matriz1.getM() != matriz2.getM()){
-            alert("Essa operação não pode ser realizada com matrizes de linhas ou colunas diferentes!");
+            alert("Essa operação não pode ser realizada! (As matrizes devem ter a mesma ordem)");
             return(null);
         } else {
 
@@ -137,10 +137,10 @@
             var matriz = new Matriz(matriz1.getN(), matriz2.getM());
             let termo;
 
-            for (let i = 0; i < matriz1.getM(); i++) {
-                for (let j = 0; j < matriz2.getN(); j++) {
+            for (let i = 0; i < matriz1.getN(); i++) {
+                for (let j = 0; j < matriz2.getM(); j++) {
                     termo = 0;
-                    for (let k = 0; k < matriz1.getN(); k++) {
+                    for (let k = 0; k < matriz2.getN(); k++) {
                         termo += matriz1.matriz[i][k] * matriz2.matriz[k][j];
                     }
                     matriz.matriz[i][j] = termo;
@@ -152,10 +152,36 @@
 
 //================================== /MULTIPLICAÇÃO POR ESCALAR ==================================
 
+//================================== MULTIPLICAÇÃO TERMO A TERMO ==================================
+
+function multTermo(matriz1, matriz2) {
+    if (matriz1.getM() != matriz2.getM() || matriz1.getN() != matriz2.getN()) {
+        alert("Essa operação não pode ser realizada! (As matrizes devem ter a mesma ordem)");
+        return null;
+    } else {
+
+        var matriz = new Matriz(matriz1.getN(), matriz1.getM());
+
+        console.log(matriz);
+
+        for(let i = 0; i < matriz.getN(); i++){
+            for (let j = 0; j < matriz.getM(); j++) {
+                let termo = matriz1.matriz[i][j] * matriz2.matriz[i][j];
+                matriz.matriz[i][j] = termo;
+            }
+        }
+        console.log(matriz);
+
+    }
+    return(matriz);
+}
+
+//================================== /MULTIPLICAÇÃO TERMO A TERMO ==================================
+
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação por escalar;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;"))
     
         switch(select){
 
@@ -168,8 +194,15 @@
 
             case 2:
 
-                let mult = multEscalar(createMatriz(), createMatriz());
-                document.getElementById('matrizArea').appendChild(writeMatriz(mult));
+                let multEscalar = multEscalar(createMatriz(), createMatriz());
+                document.getElementById('matrizArea').appendChild(writeMatriz(multEscalar));
+
+            break;
+
+            case 3:
+
+                let mult_termo = multTermo(createMatriz(), createMatriz());
+                document.getElementById('matrizArea').appendChild(writeMatriz(mult_termo));
 
             break;
         }

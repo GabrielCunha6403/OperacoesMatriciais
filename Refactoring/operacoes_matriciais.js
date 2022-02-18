@@ -2,25 +2,25 @@
 //================================== CLASSES ================================== 
     
     class Matriz{
-        constructor(n, m){
-            this.n = n;
-            this.m = m;
+        constructor(rows, cols, elements){
+            this.rows = rows;
+            this.cols = cols;
 
-            let matriz = [n];
+            let matriz = [rows];
             
-            for(var i = 0; i < n; i++){
-                matriz[i] = [m];
+            for(var i = 0; i < rows; i++){
+                matriz[i] = [cols];
             }
 
             this.matriz = matriz;
         }
 
         getN(){
-            return this.n;
+            return this.rows;
         }
         
         getM(){
-            return this.m;
+            return this.cols;
         }
 
     }
@@ -194,8 +194,8 @@ function multTermo(matriz1, matriz2) {
 
             case 2:
 
-                let multEscalar = multEscalar(createMatriz(), createMatriz());
-                document.getElementById('matrizArea').appendChild(writeMatriz(multEscalar));
+                let mult_escalar = multEscalar(createMatriz(), createMatriz());
+                document.getElementById('matrizArea').appendChild(writeMatriz(mult_escalar));
 
             break;
 

@@ -2,7 +2,7 @@
 //================================== CLASSES ================================== 
     
     class Matriz{
-        constructor(rows, cols, elements){
+        constructor(rows, cols){
             this.rows = rows;
             this.cols = cols;
 
@@ -21,10 +21,6 @@
         
         getM(){
             return this.cols;
-        }
-
-        getFirstTerm(){
-            return this.matriz[0];
         }
 
     }
@@ -65,7 +61,7 @@
 
 //================================== /MERGE SORT ==================================
 
-//================================== FUNÇÃO MULTIPLICA VETOR ==================================
+//================================== FUNÇÃO MULTIPLICA e SOMA VETOR ==================================
 
     function multVetor(mult, vetor){
         for (let i = 0; i < vetor.length; i++) {
@@ -73,7 +69,13 @@
         }
     }
 
-//================================== /FUNÇÃO MULTIPLICA VETOR ==================================
+    function subVetor(vetor1, vetor2, mult) {
+        for (let i = 0; i < vetor1.length; i++) {
+            vetor1[i] -= (vetor2[i] * mult);
+        }
+    }
+
+//================================== /FUNÇÃO MULTIPLICA e SOMA VETOR ==================================
 
 //================================== FUNÇÃO PARA CRIAR UMA MATRIZ ==================================
 
@@ -228,7 +230,14 @@ function multTermo(matriz1, matriz2) {
                     } else if (pivo == undefined){
                         return matriz;
                     } else {
-                        
+                        if(pivo != 1){
+                            multVetor(matriz.matriz[i], 1/pivo);
+                        }                            
+                        for (let k = (matriz.getN() - 1); k > 0; k--) {
+                            if(matriz.matriz[k][i] != 0){
+                                subVetor(matriz.matriz[k], matriz.matriz[i], matriz.matriz[k][i]);
+                            }
+                        }
                     }
                 }
             }
@@ -238,14 +247,12 @@ function multTermo(matriz1, matriz2) {
         }
     }
 
-    writeMatriz(gauss(createMatriz()));
-
 //================================== /ELIMINAÇÃO GAUSSIANA ==================================
 
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;"))
     
         switch(select){
 
@@ -267,6 +274,12 @@ function multTermo(matriz1, matriz2) {
 
                 let mult_termo = multTermo(createMatriz(), createMatriz());
                 document.getElementById('matrizArea').appendChild(writeMatriz(mult_termo));
+
+            break;
+
+            case 4:
+
+                document.getElementById('matrizArea').appendChild(writeMatriz(gauss(createMatriz())));
 
             break;
         }

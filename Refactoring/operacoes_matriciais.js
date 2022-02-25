@@ -63,7 +63,7 @@
 
 //================================== FUNÇÃO MULTIPLICA e SOMA VETOR ==================================
 
-    function multVetor(mult, vetor){
+    function multVetor(vetor, mult){
         for (let i = 0; i < vetor.length; i++) {
             vetor[i] = vetor[i] * mult;
         }
@@ -238,6 +238,7 @@ function multTermo(matriz1, matriz2) {
                                 subVetor(matriz.matriz[k], matriz.matriz[i], matriz.matriz[k][i]);
                             }
                         }
+                        break;
                     }
                 }
             }

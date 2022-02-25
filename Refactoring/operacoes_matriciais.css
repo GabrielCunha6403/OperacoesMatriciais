@@ -3,20 +3,27 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #fff;
+    background-color: black;
 }
 
 table{
     border-collapse: collapse;
     margin: 10px;
+    border-left: 1px solid rgb(255, 255, 255);
+    border-right: 1px solid rgb(255, 255, 255);
 }
 
 table td{
-    border: 1px solid black;
+    font-size: 50px;
+    padding: 0 20px;
 }
 
 #btnNovaOperacao{
     margin: 20px;
     height: 40px;
+    color: #fff;
+    background-color: rgb(29, 29, 29);
 }
 
 #matrizArea{

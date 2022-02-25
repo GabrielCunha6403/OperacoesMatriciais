@@ -23,6 +23,10 @@
             return this.cols;
         }
 
+        getFirstTerm(){
+            return this.matriz[0];
+        }
+
     }
 
     /*class Termo{
@@ -42,6 +46,34 @@
     }*/
 
 //================================== /CLASSES ==================================
+
+//================================== MERGE SORT ==================================
+
+    let bubbleSort = (inputArr) => {
+        let len = inputArr.matriz.length;
+        for (let i = 0; i < (len - 1); i++) {
+            for (let j = 0; j < (len - 1); j++) {
+                if (inputArr.matriz[j][0] < inputArr.matriz[j + 1][0]) {
+                    let tmp = inputArr.matriz[j];
+                    inputArr.matriz[j] = inputArr.matriz[j + 1];
+                    inputArr.matriz[j + 1] = tmp;
+                }
+            }
+        }
+        return inputArr;
+    }
+
+//================================== /MERGE SORT ==================================
+
+//================================== FUNÇÃO MULTIPLICA VETOR ==================================
+
+    function multVetor(mult, vetor){
+        for (let i = 0; i < vetor.length; i++) {
+            vetor[i] = vetor[i] * mult;
+        }
+    }
+
+//================================== /FUNÇÃO MULTIPLICA VETOR ==================================
 
 //================================== FUNÇÃO PARA CRIAR UMA MATRIZ ==================================
 
@@ -157,7 +189,6 @@
 function multTermo(matriz1, matriz2) {
     if (matriz1.getM() != matriz2.getM() || matriz1.getN() != matriz2.getN()) {
         alert("Essa operação não pode ser realizada! (As matrizes devem ter a mesma ordem)");
-        return null;
     } else {
 
         var matriz = new Matriz(matriz1.getN(), matriz1.getM());
@@ -173,10 +204,43 @@ function multTermo(matriz1, matriz2) {
         console.log(matriz);
 
     }
-    return(matriz);
 }
 
 //================================== /MULTIPLICAÇÃO TERMO A TERMO ==================================
+
+//================================== ELIMINAÇÃO GAUSSIANA ==================================
+
+    function gauss(matriz){
+        if(matriz.getN() != matriz.getM()) {
+            alert("Essa operação não pode ser realizada! (As matrizes devem ser quadradas)");
+            return null;
+        } else {
+
+            // IMPLEMENTAR MATRIZ DOS RESULTADOS
+
+            bubbleSort(matriz);
+            let pivo;
+            for (let i = 0; i < matriz.getN(); i++) {
+                for (let j = 0; j < matriz.getN(); j++) {
+                    pivo = matriz.matriz[i][j];
+                    if(pivo == 0){
+                        j++;
+                    } else if (pivo == undefined){
+                        return matriz;
+                    } else {
+                        
+                    }
+                }
+            }
+                
+
+            return matriz;
+        }
+    }
+
+    writeMatriz(gauss(createMatriz()));
+
+//================================== /ELIMINAÇÃO GAUSSIANA ==================================
 
 //================================== FUNÇÃO DO BOTÃO ==================================
 

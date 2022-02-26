@@ -222,12 +222,13 @@ function multTermo(matriz1, matriz2) {
 
             bubbleSort(matriz);
             let pivo;
+            let j = 0;
             for (let i = 0; i < matriz.getN(); i++) {
-                for (let j = 0; j < matriz.getN(); j++) {
                     pivo = matriz.matriz[i][j];
                     if(pivo == 0){
                         j++;
-                    } else if (pivo == undefined){
+                    }
+                    if (pivo == undefined){
                         return matriz;
                     } else {
                         if(pivo != 1){
@@ -238,9 +239,8 @@ function multTermo(matriz1, matriz2) {
                                 subVetor(matriz.matriz[k], matriz.matriz[i], matriz.matriz[k][i]);
                             }
                         }
-                        break;
                     }
-                }
+                    j++;
             }
                 
 

@@ -45,18 +45,21 @@
 
 //================================== BUBBLE SORT ==================================
 
-    let bubbleSort = (matriz) => {
+    let bubbleSort = (matriz, termosInd) => {
         let k = matriz.matriz.length;
+        var aux;
         for (let i = 0; i < (k - 1); i++) {
             for (let j = 0; j < (k - 1); j++) {
                 if (matriz.matriz[j][0] < matriz.matriz[j + 1][0]) {
-                    let aux = matriz.matriz[j];
+                    aux = matriz.matriz[j];
                     matriz.matriz[j] = matriz.matriz[j + 1];
                     matriz.matriz[j + 1] = aux;
+                    aux = termosInd[j];
+                    termosInd[j] = termosInd[j + 1];
+                    termosInd[j + 1] = aux;
                 }
             }
         }
-        return matriz;
     }
 
 //================================== /BUBBLE SORT ==================================
@@ -253,42 +256,23 @@ function multTermo(matriz1, matriz2) {
         var b = [];
 
         for (let x = 0; x < matriz.getN(); x++) {
-            b[x] = parseInt(prompt('Digite o ' + x + 1 + 'º termo independente:'));
+            b[x] = parseInt(prompt('Digite o ' + (x + 1) + 'º termo independente:'));
         }
+
+        bubbleSort(matriz, b);
 
         var i, j, k, l, m;
         //ETAPA DE ESCALONAMENTO
         for(k = 0; k < matriz.getN() - 1; k++){
-            //procura o maior k-ésimo coeficiente em módulo
-            var max = Math.abs(matriz.matriz[k][k]);
-            var maxIndex = k;
-            for(i = k + 1; i < matriz.getN(); i++){
-                if(max < Math.abs(matriz.matriz[i][k])){
-                    max = Math.abs(matriz.matriz[i][k]);
-                    maxIndex = i;
-                }
-            }
-            if(maxIndex != k){
-                /*
-                 troca a equação k pela equação com o
-                 maior k-ésimo coeficiente em módulo
-                 */
-                for(j = 0; j < matriz.getN(); j++){
-                    var temp = matriz.matriz[k][j];
-                    matriz.matriz[k][j] = matriz.matriz[maxIndex][j];
-                    matriz.matriz[maxIndex][j] = temp;
-                }
-                var temp = b[k];
-                b[k] = b[maxIndex];
-                b[maxIndex] = temp;
-            }
             //Se A[k][k] é zero, então a matriz dos coeficiente é singular
             //det A = 0
             if(matriz.matriz[k][k] == 0){
+                document.write("A = 0");
                 return null;
             }else{
-                //realiza o escalonamento
-                for(m = k + 1; m < matriz.getN(); m++){
+                for(m = k + 1; m < matriz.getN(); m++){ //laço para zerar o que estiver em baixo do pivô
+                    if(matriz.matriz[k][k] != 1)
+                        multVetor(matriz.matriz[k], 1/matriz.matriz[k][k]);
                     var F = -matriz.matriz[m][k] / matriz.matriz[k][k];
                     matriz.matriz[m][k] = 0; //evita uma iteração
                     b[m] = b[m] + F * b[k];
@@ -307,6 +291,8 @@ function multTermo(matriz1, matriz2) {
             }
             X[i] = X[i] / matriz.matriz[i][i];
         }
+        console.log(matriz);
+        console.log(X);
         return X;
     }
 

@@ -21,9 +21,13 @@ table td{
 
 #btnNovaOperacao{
     margin: 20px;
-    height: 40px;
+    height: 45px;
+    padding: 0 20px;
     color: #fff;
     background-color: rgb(29, 29, 29);
+    border: 0;
+    border-radius: 20px;
+    font-weight: bold;
 }
 
 #matrizArea{
@@ -31,4 +35,9 @@ table td{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+}
+
+#btnNovaOperacao:hover{
+    color: rgb(6, 60, 238);
+    cursor: pointer;
 }

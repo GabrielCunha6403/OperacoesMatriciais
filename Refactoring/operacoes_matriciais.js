@@ -43,23 +43,23 @@
 
 //================================== /CLASSES ==================================
 
-//================================== MERGE SORT ==================================
+//================================== BUBBLE SORT ==================================
 
-    let bubbleSort = (inputArr) => {
-        let len = inputArr.matriz.length;
-        for (let i = 0; i < (len - 1); i++) {
-            for (let j = 0; j < (len - 1); j++) {
-                if (inputArr.matriz[j][0] < inputArr.matriz[j + 1][0]) {
-                    let tmp = inputArr.matriz[j];
-                    inputArr.matriz[j] = inputArr.matriz[j + 1];
-                    inputArr.matriz[j + 1] = tmp;
+    let bubbleSort = (matriz) => {
+        let k = matriz.matriz.length;
+        for (let i = 0; i < (k - 1); i++) {
+            for (let j = 0; j < (k - 1); j++) {
+                if (matriz.matriz[j][0] < matriz.matriz[j + 1][0]) {
+                    let aux = matriz.matriz[j];
+                    matriz.matriz[j] = matriz.matriz[j + 1];
+                    matriz.matriz[j + 1] = aux;
                 }
             }
         }
-        return inputArr;
+        return matriz;
     }
 
-//================================== /MERGE SORT ==================================
+//================================== /BUBBLE SORT ==================================
 
 //================================== FUNÇÃO MULTIPLICA e SOMA VETOR ==================================
 
@@ -212,7 +212,7 @@ function multTermo(matriz1, matriz2) {
 
 //================================== ELIMINAÇÃO GAUSSIANA ==================================
 
-    function gauss(matriz){
+    /*function gauss(matriz){
         if(matriz.getN() != matriz.getM()) {
             alert("Essa operação não pode ser realizada! (As matrizes devem ser quadradas)");
             return null;
@@ -246,6 +246,68 @@ function multTermo(matriz1, matriz2) {
 
             return matriz;
         }
+    }*/
+
+    function gaussSolver(matriz){
+
+        var b = [];
+
+        for (let x = 0; x < matriz.getN(); x++) {
+            b[x] = parseInt(prompt('Digite o ' + x + 1 + 'º termo independente:'));
+        }
+
+        var i, j, k, l, m;
+        //ETAPA DE ESCALONAMENTO
+        for(k = 0; k < matriz.getN() - 1; k++){
+            //procura o maior k-ésimo coeficiente em módulo
+            var max = Math.abs(matriz.matriz[k][k]);
+            var maxIndex = k;
+            for(i = k + 1; i < matriz.getN(); i++){
+                if(max < Math.abs(matriz.matriz[i][k])){
+                    max = Math.abs(matriz.matriz[i][k]);
+                    maxIndex = i;
+                }
+            }
+            if(maxIndex != k){
+                /*
+                 troca a equação k pela equação com o
+                 maior k-ésimo coeficiente em módulo
+                 */
+                for(j = 0; j < matriz.getN(); j++){
+                    var temp = matriz.matriz[k][j];
+                    matriz.matriz[k][j] = matriz.matriz[maxIndex][j];
+                    matriz.matriz[maxIndex][j] = temp;
+                }
+                var temp = b[k];
+                b[k] = b[maxIndex];
+                b[maxIndex] = temp;
+            }
+            //Se A[k][k] é zero, então a matriz dos coeficiente é singular
+            //det A = 0
+            if(matriz.matriz[k][k] == 0){
+                return null;
+            }else{
+                //realiza o escalonamento
+                for(m = k + 1; m < matriz.getN(); m++){
+                    var F = -matriz.matriz[m][k] / matriz.matriz[k][k];
+                    matriz.matriz[m][k] = 0; //evita uma iteração
+                    b[m] = b[m] + F * b[k];
+                    for(l = k + 1; l < matriz.getN(); l++){
+                        matriz.matriz[m][l] = matriz.matriz[m][l] + F * matriz.matriz[k][l];
+                    }
+                }
+            }
+        }
+        //ETAPA DE RESOLUÇÃO DO SISTEMA
+        var X = [];
+        for(i = matriz.getN() - 1; i >= 0; i--){
+            X[i] = b[i];
+            for(j = i + 1; j < matriz.getN(); j++){
+                X[i] = X[i] - X[j] * matriz.matriz[i][j];
+            }
+            X[i] = X[i] / matriz.matriz[i][i];
+        }
+        return X;
     }
 
 //================================== /ELIMINAÇÃO GAUSSIANA ==================================
@@ -280,7 +342,10 @@ function multTermo(matriz1, matriz2) {
 
             case 4:
 
-                document.getElementById('matrizArea').appendChild(writeMatriz(gauss(createMatriz())));
+                var teste = new Matriz(3, 3);
+                teste.matriz = [[1, 0, 3], [2, -4, 0], [3, -2, -5]];
+                //termos independentes para teste: -8, -4, 26
+                document.getElementById('matrizArea').appendChild(writeMatriz(gaussSolver(teste)));
 
             break;
         }

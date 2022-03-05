@@ -72,9 +72,9 @@
         }
     }
 
-    function subVetor(vetor1, vetor2, mult) {
+    function somaVetor(vetor1, vetor2, mult) {
         for (let i = 0; i < vetor1.length; i++) {
-            vetor1[i] -= (vetor2[i] * mult);
+            vetor1[i] += (vetor2[i] * mult);
         }
     }
 
@@ -215,43 +215,7 @@ function multTermo(matriz1, matriz2) {
 
 //================================== ELIMINAÇÃO GAUSSIANA ==================================
 
-    /*function gauss(matriz){
-        if(matriz.getN() != matriz.getM()) {
-            alert("Essa operação não pode ser realizada! (As matrizes devem ser quadradas)");
-            return null;
-        } else {
-
-            // IMPLEMENTAR MATRIZ DOS RESULTADOS
-
-            bubbleSort(matriz);
-            let pivo;
-            let j = 0;
-            for (let i = 0; i < matriz.getN(); i++) {
-                    pivo = matriz.matriz[i][j];
-                    if(pivo == 0){
-                        j++;
-                    }
-                    if (pivo == undefined){
-                        return matriz;
-                    } else {
-                        if(pivo != 1){
-                            multVetor(matriz.matriz[i], 1/pivo);
-                        }                            
-                        for (let k = (matriz.getN() - 1); k > 0; k--) {
-                            if(matriz.matriz[k][i] != 0){
-                                subVetor(matriz.matriz[k], matriz.matriz[i], matriz.matriz[k][i]);
-                            }
-                        }
-                    }
-                    j++;
-            }
-                
-
-            return matriz;
-        }
-    }*/
-
-    function gaussSolver(matriz){
+    function gauss(matriz){
 
         var b = [];
 
@@ -262,46 +226,119 @@ function multTermo(matriz1, matriz2) {
         bubbleSort(matriz, b);
 
         var i, j, k, l, m;
-        //ETAPA DE ESCALONAMENTO
-        for(k = 0; k < matriz.getN() - 1; k++){
-            //Se A[k][k] é zero, então a matriz dos coeficiente é singular
-            //det A = 0
+        //início do escalonamento
+        for(k = 0; k < matriz.getN() - 1; k++){ //'matriz.getN() - 1' pois trabalhará somente com o que estiver abaixo e à esquerda
             if(matriz.matriz[k][k] == 0){
                 document.write("A = 0");
                 return null;
             }else{
-                for(m = k + 1; m < matriz.getN(); m++){ //laço para zerar o que estiver em baixo do pivô
-                    if(matriz.matriz[k][k] != 1)
-                        multVetor(matriz.matriz[k], 1/matriz.matriz[k][k]);
+                for(m = k + 1; m < matriz.getN(); m++){ //operações para escalonamento de linha por linha, m = k + 1 para pegar o que estiver na linha de baixo
                     var F = -matriz.matriz[m][k] / matriz.matriz[k][k];
-                    matriz.matriz[m][k] = 0; //evita uma iteração
-                    b[m] = b[m] + F * b[k];
-                    for(l = k + 1; l < matriz.getN(); l++){
+                    for(l = k + 1; l < matriz.getN(); l++){ //cada termo da linha receberá as alterações a partir da coluna à esquerda já que o termo anterior será 0
                         matriz.matriz[m][l] = matriz.matriz[m][l] + F * matriz.matriz[k][l];
                     }
+                    b[m] = b[m] + F * b[k]; //vetor dos termos independentes acompanha as mudanças
+                    matriz.matriz[m][k] = 0; //seta 0 para evitar problemas de iteração
                 }
             }
         }
-        //ETAPA DE RESOLUÇÃO DO SISTEMA
-        var X = [];
-        for(i = matriz.getN() - 1; i >= 0; i--){
-            X[i] = b[i];
-            for(j = i + 1; j < matriz.getN(); j++){
-                X[i] = X[i] - X[j] * matriz.matriz[i][j];
+
+        // transforma todos os pivores em 1
+        for (var g = 0; g < matriz.getN(); g++){
+            if(matriz.matriz[g][g] != 1){
+                b[g] = b[g] * 1/matriz.matriz[g][g];
+                multVetor(matriz.matriz[g], 1/matriz.matriz[g][g]);
             }
-            X[i] = X[i] / matriz.matriz[i][i];
         }
+
         console.log(matriz);
-        console.log(X);
-        return X;
+        
+        /*for(k = matriz.getN() - 1; k >= 0; k--){ //'matriz.getN() - 1' 
+            if(matriz.matriz[k][k] == 0){
+                document.write("A = 0");
+                return null;
+            }else{
+                for(m = k - 1; m >= 0; m--){ //operações para escalonamento de linha por linha, m = k + 1 para pegar o que estiver na linha de baixo
+                    var F = -matriz.matriz[m][k] / matriz.matriz[k][k];
+                    for(l = matriz.getN() - 1; l >= k - 1; l--){ //cada termo da linha receberá as alterações a partir da coluna à esquerda já que o termo anterior será 0
+                        matriz.matriz[m][l] = matriz.matriz[m][l] + F * matriz.matriz[k][l];
+                    }
+                    b[m] = b[m] + F * b[k]; //vetor dos termos independentes acompanha as mudanças
+                    matriz.matriz[m][k] = 0; //seta 0 para evitar problemas de iteração
+                }
+            }
+        }
+
+        // transforma todos os pivores em 1
+        for (var g = 0; g < matriz.getN(); g++){
+            if(matriz.matriz[g][g] != 1){
+                multVetor(matriz.matriz[g], 1/matriz.matriz[g][g]);
+                b[g] = b[g] * 1/matriz.matriz[g][g];
+            }
+        }*/
+
+        // criação da matriz ampliada
+        var matrizAmpliada = new Matriz(matriz.getN(), (matriz.getM() + 1));
+        for (i = 0; i < matriz.getN(); i++) {
+            for (j = 0; j < matriz.getM(); j++) {
+                matrizAmpliada.matriz[i][j] = matriz.matriz[i][j]/*.toFixed(5)*/;
+            }
+            matrizAmpliada.matriz[i][matriz.getM()] = b[i]/*.toFixed(5)*/;
+        }
+
+        return matrizAmpliada;
+
     }
 
 //================================== /ELIMINAÇÃO GAUSSIANA ==================================
 
+//================================== SOLVE ==================================
+
+    function solve(matriz) {
+
+        var b = [];
+        for (let i = 0; i < matriz.matriz.length; i++) {
+            b[i] = parseInt(matriz.matriz[i][matriz.matriz[i].length - 1]);
+        }
+        
+        for(k = matriz.getN() - 1; k >= 0; k--){ //'matriz.getN() - 1' 
+            if(matriz.matriz[k][k] == 0){
+                document.write("A = 0");
+                return null;
+            }else{
+                for(m = k - 1; m >= 0; m--){ //operações para escalonamento de linha por linha, m = k + 1 para pegar o que estiver na linha de baixo
+                    var F = -matriz.matriz[m][k] / matriz.matriz[k][k];
+                    for(l = matriz.getN() - 1; l >= k - 1; l--){ //cada termo da linha receberá as alterações a partir da coluna à esquerda já que o termo anterior será 0
+                        matriz.matriz[m][l] = matriz.matriz[m][l] + F * matriz.matriz[k][l];
+                    }
+                    b[m] = b[m] + F * b[k]; //vetor dos termos independentes acompanha as mudanças
+                    matriz.matriz[m][k] = 0; //seta 0 para evitar problemas de iteração
+                }
+            }
+        }
+
+        for (let i = 0; i < matriz.matriz.length; i++) {
+            matriz.matriz[i][matriz.matriz[i].length - 1] = b[i];
+        }
+
+        // transforma todos os pivores em 1
+        /*for (var g = 0; g < matriz.getN(); g++){
+            if(matriz.matriz[g][g] != 1){
+                multVetor(matriz.matriz[g], 1/matriz.matriz[g][g]);
+                //b[g] = b[g] * 1/matriz.matriz[g][g];
+            }
+        } */
+        
+        return matriz;
+
+    }
+
+//================================== /SOLVE ==================================
+
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;"))
     
         switch(select){
 
@@ -331,7 +368,18 @@ function multTermo(matriz1, matriz2) {
                 var teste = new Matriz(3, 3);
                 teste.matriz = [[1, 0, 3], [2, -4, 0], [3, -2, -5]];
                 //termos independentes para teste: -8, -4, 26
-                document.getElementById('matrizArea').appendChild(writeMatriz(gaussSolver(teste)));
+                document.getElementById('matrizArea').appendChild(writeMatriz(gauss(teste)));
+                //deve resultar 4, 3, -4
+
+            break;
+            
+            case 5:
+
+                var teste = new Matriz(3, 3);
+                teste.matriz = [[2, 1, 1], [1, 1, -1], [1, -1, 1]];
+                //termos independentes para teste: -8, -4, 26
+                document.getElementById('matrizArea').appendChild(writeMatriz(solve(gauss(teste))));
+                //deve resultar 4, 3, -4
 
             break;
         }

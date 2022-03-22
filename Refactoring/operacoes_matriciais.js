@@ -207,7 +207,8 @@ function multTermo(matriz1, matriz2) {
             }
         }
         console.log(matriz);
-
+        
+        return matriz;
     }
 }
 
@@ -385,7 +386,7 @@ function multTermo(matriz1, matriz2) {
                 var teste = new Matriz(3, 3);
                 teste.matriz = [[1, 0, 3], [2, -4, 0], [3, -2, -5]];
                 //termos independentes para teste: -8, -4, 26
-                document.getElementById('matrizArea').appendChild(writeMatriz(gauss(teste)));
+                document.getElementById('matrizArea').appendChild(writeMatriz(gauss(createMatriz())));
                 //deve resultar 4, 3, -4
 
             break;
@@ -395,7 +396,7 @@ function multTermo(matriz1, matriz2) {
                 var teste = new Matriz(3, 3);
                 teste.matriz = [[2, 1, 1], [1, 1, -1], [1, -1, 1]];
                 //termos independentes para teste: -8, -4, 26
-                document.getElementById('matrizArea').appendChild(writeMatriz(solve(gauss(teste))));
+                document.getElementById('matrizArea').appendChild(writeMatriz(solve(gauss(createMatriz()))));
                 //deve resultar 4, 3, -4
 
             break;
@@ -412,3 +413,5 @@ function multTermo(matriz1, matriz2) {
             break;
         }
     }
+
+    //https://escolaeducacao.com.br/escalonamento-de-matrizes/

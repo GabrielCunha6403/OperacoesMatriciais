@@ -6,10 +6,10 @@
             this.rows = rows;
             this.cols = cols;
 
-            let matriz = [rows];
+            let matriz = new Array(rows);
             
             for(var i = 0; i < rows; i++){
-                matriz[i] = [cols];
+                matriz[i] = new Array(cols);
             }
 
             this.matriz = matriz;
@@ -335,10 +335,27 @@ function multTermo(matriz1, matriz2) {
 
 //================================== /SOLVE ==================================
 
+//================================== TRANSPOSTA ==================================
+
+    function transpose(matriz){
+        let rows = matriz.getN();
+        let cols = matriz.getM();
+        var newMatriz = new Matriz(cols, rows)
+        console.log(newMatriz);
+        for(let i = 0; i < matriz.getM(); i++){
+            for(let j = 0; j < matriz.getN(); j++){
+                newMatriz.matriz[i][j] = matriz.matriz[j][i];
+            }
+        }
+        return newMatriz;
+    }
+
+//================================== /TRANSPOSTA ==================================
+
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;"))
     
         switch(select){
 
@@ -380,6 +397,17 @@ function multTermo(matriz1, matriz2) {
                 //termos independentes para teste: -8, -4, 26
                 document.getElementById('matrizArea').appendChild(writeMatriz(solve(gauss(teste))));
                 //deve resultar 4, 3, -4
+
+            break;
+
+            case 6:
+
+                document.getElementById('matrizArea').appendChild(writeMatriz(transpose(createMatriz())));
+
+            break;
+            case 7:
+
+                document.getElementById('matrizArea').appendChild(writeMatriz(createMatriz()));
 
             break;
         }

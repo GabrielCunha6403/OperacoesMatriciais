@@ -353,10 +353,77 @@ function multTermo(matriz1, matriz2) {
 
 //================================== /TRANSPOSTA ==================================
 
+//================================== IDENTIDADE ==================================
+
+    function createIdentity(dimensao) {
+        var matriz = new Matriz(dimensao, dimensao);
+        for (let i = 0; i < matriz.matriz.length; i++) {
+            for (let j = 0; j < matriz.matriz.length; j++) {
+                matriz.matriz[i][j] = 0;
+            }
+        }
+        for (let x = 0; x < matriz.matriz.length; x++) {
+            matriz.matriz[x][x] = 1;
+        }
+        return matriz;
+    }
+
+//================================== /IDENTIDADE ==================================
+
+//================================== TRANSLAÇÃO ==================================
+
+function translate2D(vetor, dx, dy) {
+    var identidade = createIdentity(3);
+    var delta = [dx, dy];
+    for (let i = 0; i < vetor.length - 1; i++) {
+        identidade.matriz[i][identidade.getN() - 1] = delta[i];
+    }
+    let vetorMatriz = new Matriz(3, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function translate3D(vetor, dx, dy, dz) {
+    var identidade = createIdentity(4);
+    var delta = [dx, dy, dz];
+    for (let i = 0; i < vetor.length - 1; i++) {
+        identidade.matriz[i][identidade.getN() - 1] = delta[i];
+    }
+    let vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+//================================== /TRANSLAÇÃO ==================================
+
+//================================== ROTAÇÃO ==================================
+
+function grausToRad(graus){
+    var rad = graus * (Math.PI / 180);
+    var teste1 = Math.sin(rad);
+    var teste2 = Math.cos(rad);
+    return rad;
+}
+
+function rotation2D(vetor, angulo){
+    var identidade = createIdentity(3);
+    var matrizRotation = [[Math.cos(grausToRad(angulo)), -Math.sin(grausToRad(angulo))], [Math.sin(grausToRad(angulo)), Math.cos(grausToRad(angulo))]];
+    for (let i = 0; i < matrizRotation.length; i++) {
+        for (let j = 0; j < matrizRotation.length; j++) {
+            identidade.matriz[i][j] = matrizRotation[i][j];
+        }
+    }
+    var vetorMatriz = new Matriz(3, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+//================================== /ROTAÇÃO ==================================
+
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;"))
     
         switch(select){
 
@@ -409,6 +476,52 @@ function multTermo(matriz1, matriz2) {
             case 7:
 
                 document.getElementById('matrizArea').appendChild(writeMatriz(createMatriz()));
+
+            break;
+            case 8:
+
+                let translate = parseInt(prompt("1- 2D;\n2- 3D;"))
+                switch(translate) {
+
+                    case 1:
+                    
+                        var x = parseInt(prompt('Qual o valor de X?'));
+                        var y = parseInt(prompt('Qual o valor de Y?'));
+                        var vetor = [[x], [y], [1]];
+                        var dx = parseInt(prompt('Qual o valor de dX?'));
+                        var dy = parseInt(prompt('Qual o valor de dY?'));
+                        document.getElementById('matrizArea').appendChild(writeMatriz(translate2D(vetor, dx, dy)));
+                    
+                    break;
+                    case 2:
+                    
+                        var x = parseInt(prompt('Qual o valor de X?'));
+                        var y = parseInt(prompt('Qual o valor de Y?'));
+                        var z = parseInt(prompt('Qual o valor de Z?'));
+                        var vetor = [[x], [y], [z], [1]];
+                        var dx = parseInt(prompt('Qual o valor de dX?'));
+                        var dy = parseInt(prompt('Qual o valor de dY?'));
+                        var dz = parseInt(prompt('Qual o valor de dZ?'));
+                        document.getElementById('matrizArea').appendChild(writeMatriz(translate3D(vetor, dx, dy, dz)));
+
+                    break;
+                }
+
+            break;
+            case 9:
+
+                let rotation = parseInt(prompt('1- 2D;\n2- ...'));
+                switch(rotation){
+                    case 1:
+
+                        var x = parseInt(prompt('Qual o valor de X?'));
+                        var y = parseInt(prompt('Qual o valor de Y?'));
+                        var vetor = [[x], [y], [1]];
+                        var angulo = parseInt(prompt('Qual ângulo em GRAUS?'));
+                        document.getElementById('matrizArea').appendChild(writeMatriz(rotation2D(vetor, angulo)));
+
+                    break;
+                }
 
             break;
         }

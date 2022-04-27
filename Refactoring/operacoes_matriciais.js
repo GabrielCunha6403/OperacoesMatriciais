@@ -510,7 +510,7 @@ function rotation2D(vetor, angulo){
             break;
             case 9:
 
-                let rotation = parseInt(prompt('1- 2D;\n2- ...'));
+                let rotation = parseInt(prompt('1- 2D;\n2- 3DX;\n3- 3DY;\n4- 3DZ;'));
                 switch(rotation){
                     case 1:
 

@@ -456,10 +456,54 @@ function rotation3DZ(vetor, angulo) {
 
 //================================== /ROTAÇÃO ==================================
 
+//================================== REFLEXÃO ==================================
+
+function reflection2DX(vetor) {
+    var identidade = createIdentity(3);
+    identidade[1][1] = -1;
+    var vetorMatriz = new Matriz(3, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function reflection2DY(vetor) {
+    var identidade = createIdentity(3);
+    identidade[0][0] = -1;
+    var vetorMatriz = new Matriz(3, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function reflection3DY(vetor) {
+    var identidade = createIdentity(4);
+    identidade[0][0] = -1;
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function reflection3DY(vetor) {
+    var identidade = createIdentity(4);
+    identidade[1][1] = -1;
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function reflection3DZ(vetor) {
+    var identidade = createIdentity(4);
+    identidade[2][2] = -1;
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+//================================== /REFLEXÃO ==================================
+
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;\n9- Rotação;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;\n9- Rotação;\n10- Reflexão;"))
     
         switch(select){
 
@@ -589,6 +633,56 @@ function rotation3DZ(vetor, angulo) {
                     break;
                 }
 
-            break;
+                break;
+                case 10:
+
+                    var reflection = parseInt(prompt('1- 2DX;\n2- 2DY;\n3- 3DX;\n4- 3DY;\n5- 3DZ;'))
+                    switch(reflection){
+                        case 1:
+
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var vetor = [[x], [y], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(reflection2DX(vetor)));
+    
+                        break;
+                        case 2:
+
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var vetor = [[x], [y], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(reflection2DY(vetor)));
+    
+                        break;
+                        case 3:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var z = parseInt(prompt('Qual o valor de Z?'));
+                            var vetor = [[x], [y], [z], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(reflection3DX(vetor)));
+    
+                        break;
+                        case 4:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var z = parseInt(prompt('Qual o valor de Z?'));
+                            var vetor = [[x], [y], [z], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(reflection3DY(vetor)));
+    
+                        break;
+                        case 5:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var z = parseInt(prompt('Qual o valor de Z?'));
+                            var vetor = [[x], [y], [z], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(reflection3DZ(vetor)));
+    
+                        break;
+                    }
+
+                break;
         }
     }

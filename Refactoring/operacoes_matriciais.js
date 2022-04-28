@@ -418,12 +418,48 @@ function rotation2D(vetor, angulo){
     return multEscalar(identidade, vetorMatriz);
 }
 
+function rotation3DX(vetor, angulo) {
+    var identidade = createIdentity(4);
+    var matrizRotation = [[Math.cos(grausToRad(angulo)), -Math.sin(grausToRad(angulo))], [Math.sin(grausToRad(angulo)), Math.cos(grausToRad(angulo))]];
+    identidade.matriz[0][0] = matrizRotation[0][0];
+    identidade.matriz[0][2] = matrizRotation[0][1];
+    identidade.matriz[2][0] = matrizRotation[1][0];
+    identidade.matriz[2][2] = matrizRotation[1][1];
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function rotation3DY(vetor, angulo) {
+    var identidade = createIdentity(4);
+    var matrizRotation = [[Math.cos(grausToRad(angulo)), -Math.sin(grausToRad(angulo))], [Math.sin(grausToRad(angulo)), Math.cos(grausToRad(angulo))]];
+    identidade.matriz[0][0] = matrizRotation[0][0];
+    identidade.matriz[0][2] = matrizRotation[0][1];
+    identidade.matriz[2][0] = matrizRotation[1][0];
+    identidade.matriz[2][2] = matrizRotation[1][1];
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function rotation3DZ(vetor, angulo) {
+    var identidade = createIdentity(4);
+    var matrizRotation = [[Math.cos(grausToRad(angulo)), -Math.sin(grausToRad(angulo))], [Math.sin(grausToRad(angulo)), Math.cos(grausToRad(angulo))]];
+    identidade.matriz[0][0] = matrizRotation[0][0];
+    identidade.matriz[0][2] = matrizRotation[0][1];
+    identidade.matriz[2][0] = matrizRotation[1][0];
+    identidade.matriz[2][2] = matrizRotation[1][1];
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
 //================================== /ROTAÇÃO ==================================
 
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;\n9- Rotação;"))
     
         switch(select){
 
@@ -521,10 +557,18 @@ function rotation2D(vetor, angulo){
                         document.getElementById('matrizArea').appendChild(writeMatriz(rotation2D(vetor, angulo)));
 
                     break;
+                    case 2:
+
+                        var x = parseInt(prompt('Qual o valor de X?'));
+                        var y = parseInt(prompt('Qual o valor de Y?'));
+                        var z = parseInt(prompt('Qual o valor de Z?'));
+                        var vetor = [[x], [y], [z], [1]];
+                        var angulo = parseInt(prompt('Qual ângulo em GRAUS?'));
+                        document.getElementById('matrizArea').appendChild(writeMatriz(rotation3DX(vetor, angulo)));
+
+                    break;
                 }
 
             break;
         }
     }
-
-    //https://escolaeducacao.com.br/escalonamento-de-matrizes/

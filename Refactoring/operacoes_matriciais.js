@@ -500,6 +500,50 @@ function reflection3DZ(vetor) {
 
 //================================== /REFLEXÃO ==================================
 
+//================================== PROJEÇÃO ==================================
+
+function projetction2DX(vetor) {
+    var identidade = createIdentity(3);
+    identidade[0][0] = 0;
+    var vetorMatriz = new Matriz(3, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function projetction2DY(vetor) {
+    var identidade = createIdentity(3);
+    identidade[1][1] = 0;
+    var vetorMatriz = new Matriz(3, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function projetction3DX(vetor) {
+    var identidade = createIdentity(4);
+    identidade[0][0] = 0;
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function projetction3DY(vetor) {
+    var identidade = createIdentity(4);
+    identidade[1][1] = 0;
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+function projetction3DZ(vetor) {
+    var identidade = createIdentity(4);
+    identidade[2][2] = 0;
+    var vetorMatriz = new Matriz(4, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+//================================== /PROJEÇÃO ==================================
+
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
@@ -679,6 +723,57 @@ function reflection3DZ(vetor) {
                             var z = parseInt(prompt('Qual o valor de Z?'));
                             var vetor = [[x], [y], [z], [1]];
                             document.getElementById('matrizArea').appendChild(writeMatriz(reflection3DZ(vetor)));
+    
+                        break;
+                    }
+
+                break;
+                case 11:
+
+                    var projection = parseInt(prompt('1- 2DX;\n2- 2DY;\n3- 3DX;\n4- 3DY;\n5- 3DZ;'));
+                    
+                    switch(projection){
+                        case 1:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var vetor = [[x], [y], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(projetction2DX(vetor)));
+
+                        break;
+                        case 2:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var vetor = [[x], [y], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(projetction2DY(vetor)));
+
+                        break;
+                        case 3:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var z = parseInt(prompt('Qual o valor de Z?'));
+                            var vetor = [[x], [y], [z], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(projetction3DX(vetor)));
+    
+                        break;
+                        case 4:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var z = parseInt(prompt('Qual o valor de Z?'));
+                            var vetor = [[x], [y], [z], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(projetction3DY(vetor)));
+    
+                        break;
+                        case 5:
+    
+                            var x = parseInt(prompt('Qual o valor de X?'));
+                            var y = parseInt(prompt('Qual o valor de Y?'));
+                            var z = parseInt(prompt('Qual o valor de Z?'));
+                            var vetor = [[x], [y], [z], [1]];
+                            document.getElementById('matrizArea').appendChild(writeMatriz(projetction3DZ(vetor)));
     
                         break;
                     }

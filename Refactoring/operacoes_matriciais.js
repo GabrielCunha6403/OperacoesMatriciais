@@ -544,10 +544,23 @@ function projetction3DZ(vetor) {
 
 //================================== /PROJEÇÃO ==================================
 
+//================================== CISALHAMENTO ==================================
+
+function shearing(vetor, dx, dy) {
+    var identidade = createIdentity(3);
+    identidade[0][1] = dx;
+    identidade[1][0] = dy;
+    var vetorMatriz = new Matriz(3, 1);
+    vetorMatriz.matriz = vetor;
+    return multEscalar(identidade, vetorMatriz);
+}
+
+//================================== /CISALHAMENTO ==================================
+
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;\n9- Rotação;\n10- Reflexão;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;\n9- Rotação;\n10- Reflexão;\n11- Projeção;\n12- Cisalhamento;"))
     
         switch(select){
 
@@ -777,6 +790,16 @@ function projetction3DZ(vetor) {
     
                         break;
                     }
+
+                break;
+                case 12:
+
+                    var x = parseInt(prompt('Qual o valor de X?'));
+                    var y = parseInt(prompt('Qual o valor de Y?'));
+                    var vetor = [[x], [y], [1]];
+                    var dx = parseInt(prompt('Qual o valor de dx?'));
+                    var dy = parseInt(prompt('Qual o valor de dy?'));
+                    document.getElementById('matrizArea').appendChild(writeMatriz(shearing(vetor, dx, dy)));
 
                 break;
         }

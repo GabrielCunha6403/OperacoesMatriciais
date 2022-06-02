@@ -380,7 +380,9 @@ function translate2D(vetor, dx, dy) {
     }
     let vetorMatriz = new Matriz(3, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 2;
+    return vetorNH;
 }
 
 function translate3D(vetor, dx, dy, dz) {
@@ -391,7 +393,9 @@ function translate3D(vetor, dx, dy, dz) {
     }
     let vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 //================================== /TRANSLAÇÃO ==================================
@@ -400,8 +404,6 @@ function translate3D(vetor, dx, dy, dz) {
 
 function grausToRad(graus){
     var rad = graus * (Math.PI / 180);
-    var teste1 = Math.sin(rad);
-    var teste2 = Math.cos(rad);
     return rad;
 }
 
@@ -415,7 +417,9 @@ function rotation2D(vetor, angulo){
     }
     var vetorMatriz = new Matriz(3, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 2;
+    return vetorNH;
 }
 
 function rotation3DX(vetor, angulo) {
@@ -427,7 +431,9 @@ function rotation3DX(vetor, angulo) {
     identidade.matriz[2][2] = matrizRotation[1][1];
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 function rotation3DY(vetor, angulo) {
@@ -439,7 +445,9 @@ function rotation3DY(vetor, angulo) {
     identidade.matriz[2][2] = matrizRotation[1][1];
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 function rotation3DZ(vetor, angulo) {
@@ -451,7 +459,9 @@ function rotation3DZ(vetor, angulo) {
     identidade.matriz[2][2] = matrizRotation[1][1];
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 //================================== /ROTAÇÃO ==================================
@@ -463,7 +473,9 @@ function reflection2DX(vetor) {
     identidade.matriz[1][1] = -1;
     var vetorMatriz = new Matriz(3, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 2;
+    return vetorNH;
 }
 
 function reflection2DY(vetor) {
@@ -471,7 +483,9 @@ function reflection2DY(vetor) {
     identidade.matriz[0][0] = -1;
     var vetorMatriz = new Matriz(3, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 2;
+    return vetorNH;
 }
 
 function reflection3DY(vetor) {
@@ -479,7 +493,9 @@ function reflection3DY(vetor) {
     identidade.matriz[0][0] = -1;
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 function reflection3DY(vetor) {
@@ -487,7 +503,9 @@ function reflection3DY(vetor) {
     identidade.matriz[1][1] = -1;
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 function reflection3DZ(vetor) {
@@ -495,7 +513,9 @@ function reflection3DZ(vetor) {
     identidade.matriz[2][2] = -1;
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 //================================== /REFLEXÃO ==================================
@@ -504,18 +524,22 @@ function reflection3DZ(vetor) {
 
 function projetction2DX(vetor) {
     var identidade = createIdentity(3);
-    identidade.matriz[0][0] = 0;
+    identidade.matriz[1][1] = 0;
     var vetorMatriz = new Matriz(3, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 2;
+    return vetorNH;
 }
 
 function projetction2DY(vetor) {
     var identidade = createIdentity(3);
-    identidade.matriz[1][1] = 0;
+    identidade.matriz[0][0] = 0;
     var vetorMatriz = new Matriz(3, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 2;
+    return vetorNH;
 }
 
 function projetction3DX(vetor) {
@@ -523,7 +547,9 @@ function projetction3DX(vetor) {
     identidade.matriz[0][0] = 0;
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 function projetction3DY(vetor) {
@@ -531,7 +557,9 @@ function projetction3DY(vetor) {
     identidade.matriz[1][1] = 0;
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 function projetction3DZ(vetor) {
@@ -539,7 +567,9 @@ function projetction3DZ(vetor) {
     identidade.matriz[2][2] = 0;
     var vetorMatriz = new Matriz(4, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 3;
+    return vetorNH;
 }
 
 //================================== /PROJEÇÃO ==================================
@@ -552,7 +582,9 @@ function shearing(vetor, dx, dy) {
     identidade.matriz[1][0] = dy;
     var vetorMatriz = new Matriz(3, 1);
     vetorMatriz.matriz = vetor;
-    return multEscalar(identidade, vetorMatriz);
+    var vetorNH =  multEscalar(identidade, vetorMatriz);
+    vetorNH.rows = 2;
+    return vetorNH;
 }
 
 //================================== /CISALHAMENTO ==================================

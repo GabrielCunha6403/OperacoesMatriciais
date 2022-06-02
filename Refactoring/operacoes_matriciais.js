@@ -25,22 +25,6 @@
 
     }
 
-    /*class Termo{
-        constructor(i, j){
-            this.i = i;
-            this.j = j;
-        }
-
-        getI(){
-            return i;
-        }
-        
-        getJ(){
-            return j;
-        }
-
-    }*/
-
 //================================== /CLASSES ==================================
 
 //================================== BUBBLE SORT ==================================
@@ -99,15 +83,12 @@ function multVetor2(vetor, mult){
 
         var matriz = new Matriz(linhas, colunas);
 
-        console.log(matriz);
-
         for(let i = 0; i < matriz.getN(); i++){
             for (let j = 0; j < matriz.getM(); j++) {
                 let termo = parseInt(prompt("Qual o valor do termo " + (i + 1) + (j + 1)+ ":"));
                 matriz.matriz[i][j] = termo;
             }
         }
-        console.log(matriz);
 
         return matriz;
     }
@@ -117,8 +98,6 @@ function multVetor2(vetor, mult){
 
 //================================== FUNÇÃO PARA TRANSFORMAR MATRIZ EM UMA TABLE HTML ==================================
     let tabela = document.getElementById("tabela");
-
-    console.log(tabela);
     
     function writeMatriz(matriz) {
 
@@ -140,7 +119,6 @@ function multVetor2(vetor, mult){
             table.appendChild(tr);
         }
 
-        console.log(table);
         document.getElementById('matrizArea').appendChild(table);
     }
 
@@ -156,8 +134,6 @@ function multVetor2(vetor, mult){
         } else {
 
             var matriz = new Matriz(matriz1.getN(), matriz1.getM());
-
-            console.log(matriz);
     
             for(let i = 0; i < matriz.getN(); i++){
                 for (let j = 0; j < matriz.getM(); j++) {
@@ -165,7 +141,6 @@ function multVetor2(vetor, mult){
                     matriz.matriz[i][j] = termo;
                 }
             }
-            console.log(matriz);
     
         }
         return(matriz);
@@ -215,15 +190,12 @@ function multTermo(matriz1, matriz2) {
 
         var matriz = new Matriz(matriz1.getN(), matriz1.getM());
 
-        console.log(matriz);
-
         for(let i = 0; i < matriz.getN(); i++){
             for (let j = 0; j < matriz.getM(); j++) {
                 let termo = matriz1.matriz[i][j] * matriz2.matriz[i][j];
                 matriz.matriz[i][j] = termo;
             }
         }
-        console.log(matriz);
         
         return matriz;
     }
@@ -269,32 +241,6 @@ function multTermo(matriz1, matriz2) {
             }
         }
 
-        console.log(matriz);
-        
-        /*for(k = matriz.getN() - 1; k >= 0; k--){ //'matriz.getN() - 1' 
-            if(matriz.matriz[k][k] == 0){
-                document.write("A = 0");
-                return null;
-            }else{
-                for(m = k - 1; m >= 0; m--){ //operações para escalonamento de linha por linha, m = k + 1 para pegar o que estiver na linha de baixo
-                    var F = -matriz.matriz[m][k] / matriz.matriz[k][k];
-                    for(l = matriz.getN() - 1; l >= k - 1; l--){ //cada termo da linha receberá as alterações a partir da coluna à esquerda já que o termo anterior será 0
-                        matriz.matriz[m][l] = matriz.matriz[m][l] + F * matriz.matriz[k][l];
-                    }
-                    b[m] = b[m] + F * b[k]; //vetor dos termos independentes acompanha as mudanças
-                    matriz.matriz[m][k] = 0; //seta 0 para evitar problemas de iteração
-                }
-            }
-        }
-
-        // transforma todos os pivores em 1
-        for (var g = 0; g < matriz.getN(); g++){
-            if(matriz.matriz[g][g] != 1){
-                multVetor(matriz.matriz[g], 1/matriz.matriz[g][g]);
-                b[g] = b[g] * 1/matriz.matriz[g][g];
-            }
-        }*/
-
         // criação da matriz ampliada
         var matrizAmpliada = new Matriz(matriz.getN(), (matriz.getM() + 1));
         for (i = 0; i < matriz.getN(); i++) {
@@ -338,14 +284,6 @@ function multTermo(matriz1, matriz2) {
         for (let i = 0; i < matriz.matriz.length; i++) {
             matriz.matriz[i][matriz.matriz[i].length - 1] = b[i];
         }
-
-        // transforma todos os pivores em 1
-        /*for (var g = 0; g < matriz.getN(); g++){
-            if(matriz.matriz[g][g] != 1){
-                multVetor(matriz.matriz[g], 1/matriz.matriz[g][g]);
-                //b[g] = b[g] * 1/matriz.matriz[g][g];
-            }
-        } */
         
         return matriz;
 
@@ -359,7 +297,6 @@ function multTermo(matriz1, matriz2) {
         let rows = matriz.getN();
         let cols = matriz.getM();
         var newMatriz = new Matriz(cols, rows)
-        console.log(newMatriz);
         for(let i = 0; i < matriz.getM(); i++){
             for(let j = 0; j < matriz.getN(); j++){
                 newMatriz.matriz[i][j] = matriz.matriz[j][i];
@@ -623,11 +560,6 @@ function somaLinha(matriz){
     return matriz;
 }
 
-var matriz = new Matriz(2, 2);
-matriz.matriz = [[1, 2], [3, 4]];
-console.log(somaLinha(matriz));
-console.log(somaLinha(transpose(matriz)));
-
 function norma(matriz){
     var aux = 0;
     for (let i = 0; i < matriz.matriz.length; i++) {
@@ -635,19 +567,6 @@ function norma(matriz){
     }
     return Math.sqrt(aux);
 }
-
-/*matriz = new Matriz(1, 4);
-matriz.matriz = [4, 3, 5, 6];
-console.log(norma(matriz))
-
-matriz.matriz = matriz1010
-matriz.cols = 10;
-matriz.rows = 10;
-console.log(norma(somaLinha(transpose(matriz))));
-var denominador = norma(somaLinha(transpose(matriz)));
-var teste = multVetor2(somaLinha(transpose(matriz)).matriz, 1/denominador);
-matriz.matriz = teste;
-console.log(matriz);*/
 
 var matriz1010 = [[0, 1, 0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 1, 1, 1, 1, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]];
 var matriz44 = [[0, 0, 1, 1], [1, 0, 0, 0], [1, 0, 0, 1], [1, 1, 1, 0]];
@@ -667,29 +586,19 @@ function pageRank(matriz) {
         ataa = multEscalar(ata, a);
     }
 
-    console.log(a);
+    var matrizz = new Matriz(1, 10);
+    matrizz.matriz[0] = a.matriz;
 
-    /*
-    for (let k = 0; k < matriz.matriz.length; k++) {
-        aa = multEscalar(matriz, a);
-        h = multVetor2(aa0, 1 / norma(aa0));
-        ath = multEscalar(transpose(matriz), h);
-        a = multVetor2(ath, 1 / norma(ath));
-    }
-    return a;*/
+    return transpose(matrizz);
+
 }
 
-var matriz = new Matriz(4, 4);
-matriz.matriz = matriz44;
-var vamove = pageRank(matriz);
-
 //================================== /AV3 ==================================
-
 
 //================================== FUNÇÃO DO BOTÃO ==================================
 
     function selectOperation(){
-        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;\n9- Rotação;\n10- Reflexão;\n11- Projeção;\n12- Cisalhamento;"))
+        let select = parseInt(prompt("Escolha a operação que você deseja fazer:\n1- Soma entre matrizes;\n2- Multiplicação por escalar;\n3- Multiplicação termo a termo;\n4- Eliminação Gaussiana;\n5- Solve;\n6- Matriz transposta;\n7- Criar Matriz;\n8- Translação;\n9- Rotação;\n10- Reflexão;\n11- Projeção;\n12- Cisalhamento;\n13- PageRank Algortim;"))
     
         switch(select){
 
@@ -931,5 +840,13 @@ var vamove = pageRank(matriz);
                     document.getElementById('matrizArea').appendChild(writeMatriz(shearing(vetor, dx, dy)));
 
                 break;
+                case 13:
+
+                    var matrix = new Matriz(10, 10);
+                    matrix.matriz = matriz1010;
+                    var pageRanked = pageRank(matrix);
+                    document.getElementById('matrizArea').appendChild(writeMatriz(pageRanked));
+                break;
+
         }
     }

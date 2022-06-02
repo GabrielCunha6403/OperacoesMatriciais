@@ -66,11 +66,22 @@
 
 //================================== FUNÇÃO MULTIPLICA e SOMA VETOR ==================================
 
-    function multVetor(vetor, mult){
-        for (let i = 0; i < vetor.length; i++) {
-            vetor[i] = vetor[i] * mult;
-        }
+function multVetor(vetor, mult){
+    for (let i = 0; i < vetor.length; i++) {
+        vetor[i] = vetor[i] * mult;
     }
+}
+
+function multVetor2(vetor, mult){
+    var matriz = [];
+    for (let i = 0; i < vetor.length; i++) {
+        matriz[i] = vetor[i] * mult;
+    }
+
+    var x = new Matriz(vetor.length, 1);
+    x.matriz = matriz;
+    return x;
+}
 
     function somaVetor(vetor1, vetor2, mult) {
         for (let i = 0; i < vetor1.length; i++) {
@@ -177,8 +188,14 @@
             for (let i = 0; i < matriz1.getN(); i++) {
                 for (let j = 0; j < matriz2.getM(); j++) {
                     termo = 0;
-                    for (let k = 0; k < matriz2.getN(); k++) {
-                        termo += matriz1.matriz[i][k] * matriz2.matriz[k][j];
+                    if(typeof matriz2.matriz[0] === 'object'){
+                        for (let k = 0; k < matriz2.getN(); k++) {
+                            termo += matriz1.matriz[i][k] * matriz2.matriz[k][j];
+                        }
+                    } else{
+                        for (let k = 0; k < matriz2.getN(); k++) {
+                            termo += matriz1.matriz[i][k] * matriz2.matriz[k];
+                        }
                     }
                     matriz.matriz[i][j] = termo;
                 }
@@ -588,6 +605,86 @@ function shearing(vetor, dx, dy) {
 }
 
 //================================== /CISALHAMENTO ==================================
+
+//================================== AV3 ==================================
+
+function somaLinha(matriz){
+    var linhas_somadas = [];
+    var aux = 0;
+    for (let i = 0; i < matriz.matriz.length; i++) {
+        for (let j = 0; j < matriz.matriz.length; j++) {
+            aux += matriz.matriz[i][j];
+        }
+        linhas_somadas[i] = aux;
+        aux = 0;
+    }
+    var matriz = new Matriz(linhas_somadas.length);
+    matriz.matriz = linhas_somadas;
+    return matriz;
+}
+
+var matriz = new Matriz(2, 2);
+matriz.matriz = [[1, 2], [3, 4]];
+console.log(somaLinha(matriz));
+console.log(somaLinha(transpose(matriz)));
+
+function norma(matriz){
+    var aux = 0;
+    for (let i = 0; i < matriz.matriz.length; i++) {
+        aux += matriz.matriz[i] * matriz.matriz[i];
+    }
+    return Math.sqrt(aux);
+}
+
+/*matriz = new Matriz(1, 4);
+matriz.matriz = [4, 3, 5, 6];
+console.log(norma(matriz))
+
+matriz.matriz = matriz1010
+matriz.cols = 10;
+matriz.rows = 10;
+console.log(norma(somaLinha(transpose(matriz))));
+var denominador = norma(somaLinha(transpose(matriz)));
+var teste = multVetor2(somaLinha(transpose(matriz)).matriz, 1/denominador);
+matriz.matriz = teste;
+console.log(matriz);*/
+
+var matriz1010 = [[0, 1, 0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 1, 1, 1, 1, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]];
+var matriz44 = [[0, 0, 1, 1], [1, 0, 0, 0], [1, 0, 0, 1], [1, 1, 1, 0]];
+
+function pageRank(matriz) {
+    var a;
+    var ata;
+    var ataa;
+
+    a = multVetor2(somaLinha(transpose(matriz)).matriz, 1 / norma(somaLinha(transpose(matriz))));
+    ata = multEscalar(transpose(matriz), matriz);
+    ataa = multEscalar(ata, a);
+    
+    for (let i = 0; i < matriz.matriz.length; i++) {
+        a = multVetor2(ataa.matriz, 1 / norma(ataa));
+        ata = multEscalar(transpose(matriz), matriz);
+        ataa = multEscalar(ata, a);
+    }
+
+    console.log(a);
+
+    /*
+    for (let k = 0; k < matriz.matriz.length; k++) {
+        aa = multEscalar(matriz, a);
+        h = multVetor2(aa0, 1 / norma(aa0));
+        ath = multEscalar(transpose(matriz), h);
+        a = multVetor2(ath, 1 / norma(ath));
+    }
+    return a;*/
+}
+
+var matriz = new Matriz(4, 4);
+matriz.matriz = matriz44;
+var vamove = pageRank(matriz);
+
+//================================== /AV3 ==================================
+
 
 //================================== FUNÇÃO DO BOTÃO ==================================
 

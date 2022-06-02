@@ -586,7 +586,7 @@ function pageRank(matriz) {
         ataa = multEscalar(ata, a);
     }
 
-    var matrizz = new Matriz(1, 10);
+    var matrizz = new Matriz(1, a.matriz.length);
     matrizz.matriz[0] = a.matriz;
 
     return transpose(matrizz);
@@ -842,10 +842,10 @@ function pageRank(matriz) {
                 break;
                 case 13:
 
-                    var matrix = new Matriz(10, 10);
+                    /*var matrix = new Matriz(10, 10);
                     matrix.matriz = matriz1010;
-                    var pageRanked = pageRank(matrix);
-                    document.getElementById('matrizArea').appendChild(writeMatriz(pageRanked));
+                    var pageRanked = pageRank(matrix);*/
+                    document.getElementById('matrizArea').appendChild(writeMatriz(pageRank(createMatriz())));
                 break;
 
         }

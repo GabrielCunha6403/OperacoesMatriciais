@@ -59,7 +59,7 @@ function multVetor(vetor, mult){
 function multVetor2(vetor, mult){
     var matriz = [];
     for (let i = 0; i < vetor.length; i++) {
-        matriz[i] = vetor[i] * mult;
+        matriz[i] = vetor[i] * mult.toFixed(6);
     }
 
     var x = new Matriz(vetor.length, 1);
@@ -565,22 +565,34 @@ function norma(matriz){
     for (let i = 0; i < matriz.matriz.length; i++) {
         aux += matriz.matriz[i] * matriz.matriz[i];
     }
-    return Math.sqrt(aux);
+    return Math.sqrt(aux).toFixed(5);
 }
 
 var matriz1010 = [[0, 1, 0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 1, 1, 1, 1, 0, 0, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 0, 0]];
 var matriz44 = [[0, 0, 1, 1], [1, 0, 0, 0], [1, 0, 0, 1], [1, 1, 1, 0]];
 
+function checkRange(vetor1, vetor2) {
+    console.log(vetor1);
+    console.log(vetor2);
+    for (let i = 0; i < vetor1.length; i++) {
+        if(vetor1[i] != vetor2[i])
+            return true;
+    }
+    return false;
+}
+
 function pageRank(matriz) {
     var a;
     var ata;
     var ataa;
+    var aux = new Matriz(0, 0);
 
     a = multVetor2(somaLinha(transpose(matriz)).matriz, 1 / norma(somaLinha(transpose(matriz))));
     ata = multEscalar(transpose(matriz), matriz);
     ataa = multEscalar(ata, a);
     
-    for (let i = 0; i < matriz.matriz.length; i++) {
+    while(checkRange(a.matriz, aux.matriz)) {
+        aux = a;
         a = multVetor2(ataa.matriz, 1 / norma(ataa));
         ata = multEscalar(transpose(matriz), matriz);
         ataa = multEscalar(ata, a);

@@ -58,8 +58,10 @@ function multVetor(vetor, mult){
 
 function multVetor2(vetor, mult){
     var matriz = [];
+    var termo;
     for (let i = 0; i < vetor.length; i++) {
-        matriz[i] = vetor[i] * mult.toFixed(6);
+        termo = vetor[i] * mult; 
+        matriz[i] = termo.toFixed(5);
     }
 
     var x = new Matriz(vetor.length, 1);
@@ -172,7 +174,7 @@ function multVetor2(vetor, mult){
                             termo += matriz1.matriz[i][k] * matriz2.matriz[k];
                         }
                     }
-                    matriz.matriz[i][j] = termo;
+                    matriz.matriz[i][j] = termo.toFixed(5);
                 }
             }
             return matriz;
@@ -586,8 +588,10 @@ function pageRank(matriz) {
     var ata;
     var ataa;
     var aux = new Matriz(0, 0);
+    var normaInversa;
 
-    a = multVetor2(somaLinha(transpose(matriz)).matriz, 1 / norma(somaLinha(transpose(matriz))));
+    normaInversa = 1 / norma(somaLinha(transpose(matriz)));
+    a = multVetor2(somaLinha(transpose(matriz)).matriz, (normaInversa.toFixed(5)));
     ata = multEscalar(transpose(matriz), matriz);
     ataa = multEscalar(ata, a);
     
